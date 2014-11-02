@@ -11,16 +11,16 @@ def solve_puzzle(master, output, height, width, slaves):
 
     sol = Sliding.solution(WIDTH, HEIGHT)
     
-    frontierRDD = sc.parallelize([(Sliding.board_to_hash(sol), 0)])
-    boardsRDD = sc.parallelize([(Sliding.board_to_hash(sol), 0)])
+    frontierRDD = sc.parallelize([(Sliding.board_to_hash(WIDTH, HEIGHT, sol), 0)])
+    boardsRDD = sc.parallelize([(Sliding.board_to_hash(WIDTH, HEIGHT, sol), 0)])
     while frontierRDD.count() != 0:
         level += 1
         
         # get all frontier nodes as a flattened list of ONLY (key), NOT (key, value)
-        frontierRDD = frontierRDD.flatMap(lambda v: Sliding.children(WIDTH, HEIGHT, Sliding.hash_to_board(v)[0]))
+        frontierRDD = frontierRDD.flatMap(lambda v: Sliding.children(WIDTH, HEIGHT, Sliding.hash_to_board(WIDTH, HEIGHT, v[0])))
         
         # add new (chilq, level) pairs to all boards
-        boardsRDD = boardsRDD + frontierRDD.map(lambda v: (Sliding.board_to_hash(v), level))
+        boardsRDD = boardsRDD + frontierRDD.map(lambda v: (Sliding.board_to_hash(WIDTH, HEIGHT, v), level))
         #boardsRDD = boardsRDD.partitionBy(8, partitionFunc)
         
         # only keep board seen at lowest level
