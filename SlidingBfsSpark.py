@@ -9,8 +9,31 @@ def solve_puzzle(master, output, height, width, slaves):
 
     sc = SparkContext(master, "python")
 
-    """ YOUR CODE HERE """
+    sol = Sliding.solution(WIDTH, HEIGHT)
+    
+    frontierRDD = sc.parallelize([(Sliding.board_to_hash(sol), 0)])
+    boardsRDD = sc.parallelize([(Sliding.board_to_hash(sol), 0)])
+    while frontierRDD.count() != 0:
+        level += 1
+        
+        # get all frontier nodes as a flattened list of ONLY (key), NOT (key, value)
+        frontierRDD = frontierRDD.flatMap(lambda v: Sliding.children(WIDTH, HEIGHT, Sliding.hash_to_board(v)[0]))
+        
+        # add new (chilq, level) pairs to all boards
+        boardsRDD = boardsRDD + frontierRDD.map(lambda v: (Sliding.board_to_hash(v), level))
+        #boardsRDD = boardsRDD.partitionBy(8, partitionFunc)
+        
+        # only keep board seen at lowest level
+        boardsRDD = boardsRDD.reduceByKey(lambda v1, v2: min(v1, v2))
 
+        # frontier is only the boards that have the current level
+        frontierRDD = boardsRDD.filter(lambda v: v[1] == level)
+
+        # magic voodoo that it doesn't work without
+        boardsRDD = boardsRDD.coalesce(slaves)
+        frontierRDD = frontierRDD.coalesce(slaves)
+    
+    boardsRDD.coalesce(slaves).saveAsTextFile(output)
     sc.stop()
 
 
