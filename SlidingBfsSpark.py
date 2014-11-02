@@ -15,7 +15,7 @@ def solve_puzzle(master, output, height, width, slaves):
     boardsRDD = sc.parallelize([(Sliding.board_to_hash(WIDTH, HEIGHT, sol), 0)])
     #while frontierRDD.count() != 0:
     try:
-        while frontierRDD.front():
+        while frontierRDD.first():
             level += 1
             
             # get all frontier nodes as a flattened list of ONLY (key), NOT (key, value)
