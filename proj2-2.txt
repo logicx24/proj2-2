@@ -1,0 +1,14 @@
+ec2-medium 5x2 6 slaves
+    3.4 minutes
+    24Mb
+    24845750 Bytes
+    34.7GB Memory used
+    5.5GB memory/node
+    48 cores
+
+ec2-medium 5x2 12 slaves
+    2.2 minutes
+    24MB
+    63.7GB Memory
+    5.5GB memory/node
+    88 cores
