@@ -1,4 +1,4 @@
-MASTER="YOUR MASTER URL HERE"
+MASTER="ec2-54-87-218-200.compute-1.amazonaws.com"
 SLAVE_COUNT=12
 MASTER_URL="spark://$(MASTER):7077"
 SOLVER=SlidingBfsSpark.py

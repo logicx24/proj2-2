@@ -14,29 +14,30 @@ def solve_puzzle(master, output, height, width, slaves):
     frontierRDD = sc.parallelize([(Sliding.board_to_hash(WIDTH, HEIGHT, sol), 0)])
     boardsRDD = sc.parallelize([(Sliding.board_to_hash(WIDTH, HEIGHT, sol), 0)])
     #while frontierRDD.count() != 0:
-    try:
-        while frontierRDD.first():
-            level += 1
+    while True:
+        level += 1
             
-            # get all frontier nodes as a flattened list of ONLY (key), NOT (key, value)
-            frontierRDD = frontierRDD.flatMap(lambda v: Sliding.children(WIDTH, HEIGHT, Sliding.hash_to_board(WIDTH, HEIGHT, v[0])))
+        # get all frontier nodes as a flattened list of ONLY (key), NOT (key, value)
+        frontierRDD = frontierRDD.flatMap(lambda v: Sliding.children(WIDTH, HEIGHT, Sliding.hash_to_board(WIDTH, HEIGHT, v[0])))
             
-            # add new (chilq, level) pairs to all boards
-            boardsRDD = boardsRDD + frontierRDD.map(lambda v: (Sliding.board_to_hash(WIDTH, HEIGHT, v), level))
-            #boardsRDD = boardsRDD.partitionBy(8, partitionFunc)
+        # add new (chilq, level) pairs to all boards
+        boardsRDD = boardsRDD + frontierRDD.map(lambda v: (Sliding.board_to_hash(WIDTH, HEIGHT, v), level))
+        #boardsRDD = boardsRDD.partitionBy(8, partitionFunc)
             
-            # only keep board seen at lowest level
-            boardsRDD = boardsRDD.reduceByKey(lambda v1, v2: min(v1, v2))
+        # only keep board seen at lowest level
+        boardsRDD = boardsRDD.reduceByKey(lambda v1, v2: min(v1, v2))
 
-            # frontier is only the boards that have the current level
-            frontierRDD = boardsRDD.filter(lambda v: v[1] == level)
+        # frontier is only the boards that have the current level
+        frontierRDD = boardsRDD.filter(lambda v: v[1] == level)
 
-            # magic voodoo that it doesn't work without
-            boardsRDD = boardsRDD.coalesce(slaves)
-            frontierRDD = frontierRDD.coalesce(slaves)
-    except:
-        boardsRDD.coalesce(slaves).saveAsTextFile(output)
-        sc.stop()
+        # magic voodoo that it doesn't work without
+        boardsRDD = boardsRDD.partitionBy(slaves, lambda v: v)
+        frontierRDD = frontierRDD.partitionBy(slaves, lambda v: v)
+        if level % 4 == 0 and frontierRDD.count() == 0:
+            break
+
+    boardsRDD.coalesce(slaves).saveAsTextFile(output)
+    sc.stop()
 
 
 

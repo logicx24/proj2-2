@@ -1,3 +1,21 @@
+1. medium 6 slaves: 3.4 minutes
+   medium 12 slaves: 2.2 minutes
+   large 12 slaves: 
+
+2. medium 6 slaves: 0.1218 MB/s
+   medium 12 slaves: 0.1882 MB/s
+   large 12 slaves: 
+
+3. We had a speed up of 0.0664 MB/s, which is 54% a increase.
+   This looks like strong scaling, because the speedup was gained when we
+   split the problem into more parts, each processer doing a smaller part
+   of the total work.
+
+4. 
+
+
+
+
 ec2-medium 5x2 6 slaves
     3.4 minutes
     24Mb
