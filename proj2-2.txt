@@ -4,9 +4,10 @@
 
 2. medium 6 slaves: 0.1218 MB/s
    medium 12 slaves: 0.1882 MB/s
-   large 12 slaves: 2.8345 MB/s
+   large 12 slaves: 0.002835 MB/s
 
-3. We had a speed up of 0.0664 MB/s, which is 54% a increase.
+3. We had a speed up of 0.0664 MB/s when we changed from 6 to 12 slaves, 
+   which is a 54% increase in speed.
    This looks like strong scaling, because the speedup was gained when we
    split the problem into more parts, each processer doing a smaller part
    of the total work.
