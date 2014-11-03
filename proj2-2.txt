@@ -1,3 +1,8 @@
+Gabriel Intrator cs61c-adv
+Aakash Japi cs61c-azh
+
+Project 2-2 Answers
+
 1. medium 6 slaves: 3.4 minutes
    medium 12 slaves: 2.2 minutes
    large 12 slaves: 4.9 hours 
@@ -25,7 +30,8 @@
    The value for the large puzzle is more accurate, since we used just about
    all of the time that we were charged for to actually solve the puzzle.
 
-5. Each machine costs 68 cents per hour. We used 6 slaves + 1 master for a total of one hour,
-   creating a cost of .68 * 7 * 1 = 4.76 dollars. We also used 12 slaves + 1 master for 13 
-   hours total, with test runs and minimal idle time, giving .68 * 13 * 13 = 114.92 dollars.
-   The total then becomes 119.68 dollars of EC2 credit.
+5. Each machine costs 68 cents per hour. We used 6 slaves + 1 master for a 
+   total of one hour, creating a cost of .68 * 7 * 1 = 4.76 dollars. We 
+   also used 12 slaves + 1 master for 13 hours total, with test runs and 
+   minimal idle time, giving .68 * 13 * 13 = 114.92 dollars. The total then 
+   becomes 119.68 dollars of EC2 credit.
