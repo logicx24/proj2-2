@@ -19,9 +19,11 @@
    The price for the medium puzzles is not representative of the actual
    price/GB for the cluster. Since the tests only used ~3 minutes of the
    hour, the amount of data that we acquired is not close to the amount
-   that would be acquired in a full hour. Since we are charged for an entire   hour, this ratio is very high and unrepresentative of the true cost/GB.
+   that would be acquired in a full hour. Since we are charged for an entir
+   hour, this ratio is very high and unrepresentative of the true cost/GB.
 
-   The value for the large puzzle is more accurate, since we used just about   all of the time that we were charged for to actually solve the puzzle.
+   The value for the large puzzle is more accurate, since we used just abou
+   all of the time that we were charged for to actually solve the puzzle.
 
 5. Each machine costs 68 cents per hour. We used 6 slaves + 1 master for a total of one hour,
    creating a cost of .68 * 7 * 1 = 4.76 dollars. We also used 12 slaves + 1 master for 13 
