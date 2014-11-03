@@ -1,10 +1,10 @@
 1. medium 6 slaves: 3.4 minutes
    medium 12 slaves: 2.2 minutes
-   large 12 slaves: 
+   large 12 slaves: 4.9 hours 
 
 2. medium 6 slaves: 0.1218 MB/s
    medium 12 slaves: 0.1882 MB/s
-   large 12 slaves: 
+   large 12 slaves: 2.8345 MB/s
 
 3. We had a speed up of 0.0664 MB/s, which is 54% a increase.
    This looks like strong scaling, because the speedup was gained when we
